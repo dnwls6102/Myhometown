@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}어디가 더 시골일까?{% endblock %}
+
+{% block content %}
+    <p>6시 내고향에 더 많이 나왔을 것 같은 지역을 골라주세요.</p>
+    <button id = "first"></button>
+    <button id = "second"></button>
+    <p><div id = "data"></div></p>
+    <p id="text"></p>
+
+    <script>
+        var point = 0;
+        var dict = {{ dic|tojson }};
+        var dictKey = Object.keys(dict);
+        var answer = "";
+        var fbutton = document.getElementById("first");
+        var sbutton = document.getElementById("second");
+        var a = randomPlace();
+        var b = randomPlace();
+        fbutton.innerHTML = a;
+        sbutton.innerHTML = b;
+
+        fbutton.addEventListener("click", showResultZero);
+        sbutton.addEventListener("click", showResultOne);
+
+        function showResultZero() {
+
+            if (returnValue(a) >= returnValue(b)) {
+                document.getElementById("data").innerHTML = returnValue(a) + " " + returnValue(b);
+                document.getElementById("text").innerHTML = "정답!";
+                point = point + 1;
+                localStorage.setItem('point', point);
+                setTimeout(anotherOne, 1000);
+                function anotherOne() {
+                    b = randomPlace();
+                    document.getElementById("data").innerHTML = returnValue(a);
+                    document.getElementById("second").innerHTML = b;
+                    document.getElementById("text").innerHTML = "";
+                }
+            } else {
+                document.getElementById("data").innerHTML = returnValue(a) + " " + returnValue(b);
+                document.getElementById("text").innerHTML = "오답";
+                setTimeout(goToResultPage, 1000);
+                localStorage.setItem('point', point);
+                function goToResultPage() {
+                    window.location.replace("/result");
+                }
+            }
+        }
+        function showResultOne() {
+
+            if (returnValue(b) >= returnValue(a)) {
+                document.getElementById("data").innerHTML = returnValue(a) + " " + returnValue(b);
+                document.getElementById("text").innerHTML = "정답!";
+                point = point + 1;
+                localStorage.setItem('point', point);
+                setTimeout(anotherOne, 1000);
+                function anotherOne() {
+                    a = randomPlace();
+                    document.getElementById("data").innerHTML = "    " + returnValue(b);
+                    document.getElementById("first").innerHTML = a;
+                    document.getElementById("text").innerHTML = "";
+                }
+            } else {
+                document.getElementById("data").innerHTML = returnValue(a) + " " + returnValue(b);
+                document.getElementById("text").innerHTML = "오답";
+                setTimeout(goToResultPage, 1000);
+                localStorage.setItem('point', point);
+                function goToResultPage() {
+                    window.location.replace("/result");
+                }
+            }
+        }
+
+        function randomPlace() {
+                return dictKey[Math.floor(Math.random() * dictKey.length)];
+        }
+
+        function returnValue(x) {
+            return dict[x];
+        }
+
+        function randomValue() {
+            return dict[dictKey[Math.floor(Math.random() * dictKey.length)]];
+        }
+
+    </script>
+
+    <p><a href="/">처음으로</a><a href="/test">테스트 페이지</a></p>
+{% endblock %}

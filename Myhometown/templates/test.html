@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>테스트 페이지</title>
+</head>
+<body>
+    <p>사전객체, 랜덤 테스트</p>
+        <p id = "first"></p>
+        <p id = "second"></p>
+        <p id = "result"></p>
+        <script>
+            var dictObject = {{ dic|tojson }};
+            var dictKey = Object.keys(dictObject);
+
+            var first = randomPlace();
+            var second = randomPlace();
+
+            document.getElementById("first").innerHTML = first;
+            document.getElementById("second").innerHTML = second;
+
+
+            if (returnValue(first) > returnValue(second)) {
+                document.getElementById("result").innerHTML = "위에 것이 더 큼";
+            } else if (returnValue(first) == returnValue(second)) {
+                document.getElementById("result").innerHTML = "같음";
+            } else {
+                document.getElementById("result").innerHTML = "위에 것이 더 작음";
+            }
+
+
+            function randomPlace() {
+                return dictKey[Math.floor(Math.random() * dictKey.length)];
+            }
+
+            function returnValue(x) {
+                return dictObject[x];
+            }
+
+            function randomValue() {
+                return dictObject[dictKey[Math.floor(Math.random() * dictKey.length)]];
+            }
+        </script>
+
+    <p><a href="/">처음으로</a></p>
+
+</body>
+</html>
