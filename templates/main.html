@@ -33,8 +33,10 @@
                 localStorage.setItem('point', point);
                 setTimeout(anotherOne, 1000);
                 function anotherOne() {
+                    a = randomPlace();
                     b = randomPlace();
-                    document.getElementById("data").innerHTML = returnValue(a);
+                    document.getElementById("data").innerHTML = "";
+                    document.getElementById("first").innerHTML = a;
                     document.getElementById("second").innerHTML = b;
                     document.getElementById("text").innerHTML = "";
                 }
@@ -58,8 +60,10 @@
                 setTimeout(anotherOne, 1000);
                 function anotherOne() {
                     a = randomPlace();
-                    document.getElementById("data").innerHTML = "    " + returnValue(b);
+                    b = randomPlace();
+                    document.getElementById("data").innerHTML = "";
                     document.getElementById("first").innerHTML = a;
+                    document.getElementById("second").innerHTML = b;
                     document.getElementById("text").innerHTML = "";
                 }
             } else {
@@ -87,5 +91,5 @@
 
     </script>
 
-    <p><a href="/">처음으로</a><a href="/test">테스트 페이지</a></p>
+    <p><a href="/">처음으로</a></p>
 {% endblock %}
