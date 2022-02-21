@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}어디가 더 시골일까?{% endblock %}
+
+{% block content %}
+    <p id="result">결과 : 비투더아투더뱅뱅</p>
+    <a href="/">처음으로</a>
+    <script>
+        if (localStorage.getItem('point')) {
+            var point = localStorage.getItem('point');
+        }
+
+        var resultline = document.getElementById("result");
+
+        resultline.innerHTML = "점수 : "+ point + "점";
+    </script>
+{% endblock %}
