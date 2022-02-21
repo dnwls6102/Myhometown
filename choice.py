@@ -7,7 +7,7 @@ import random
 def make_choice():
     dic = datas.count
 
-    return render_template('main.html', dic = dic)
+    return render_template('index.html', dic = dic)
 
 
 @app.route('/result')
